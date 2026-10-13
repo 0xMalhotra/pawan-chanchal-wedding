@@ -1,228 +1,168 @@
-/* =========================================================
-   Pawan & Chanchal Wedding Website - script.js
-   ========================================================= */
+/* ============================================================
+   PAWAN & CHANCHAL — script.js
+   ============================================================ */
 
-// ── 1. COUNTDOWN TIMER ────────────────────────────────────
-(function initCountdown() {
-  const weddingDate = new Date('2026-10-20T20:00:00+05:30');
+// ── 1. COUNTDOWN ─────────────────────────────────────────
+(function () {
+  const target = new Date('2026-10-20T20:00:00+05:30');
+  const els = {
+    d: document.getElementById('cd-d'),
+    h: document.getElementById('cd-h'),
+    m: document.getElementById('cd-m'),
+    s: document.getElementById('cd-s'),
+  };
 
-  function update() {
-    const now = new Date();
-    const diff = weddingDate - now;
-
+  function tick() {
+    const diff = target - Date.now();
     if (diff <= 0) {
       document.getElementById('countdown').innerHTML =
-        '<p style="font-family:var(--font-script);font-size:2rem;color:var(--maroon)">🎉 The Big Day is Here!</p>';
+        '<p style="font-family:var(--f-script);font-size:2rem;color:var(--clr-gold-lt)">🎊 Today is the Big Day!</p>';
       return;
     }
-
-    const d  = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const h  = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const m  = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-    const s  = Math.floor((diff % (1000 * 60)) / 1000);
-
-    const pad = n => String(n).padStart(2, '0');
-    document.getElementById('days').textContent    = pad(d);
-    document.getElementById('hours').textContent   = pad(h);
-    document.getElementById('minutes').textContent = pad(m);
-    document.getElementById('seconds').textContent = pad(s);
+    const pad = n => String(Math.floor(n)).padStart(2, '0');
+    els.d.textContent = pad(diff / 86400000);
+    els.h.textContent = pad((diff % 86400000) / 3600000);
+    els.m.textContent = pad((diff % 3600000) / 60000);
+    els.s.textContent = pad((diff % 60000) / 1000);
   }
-
-  update();
-  setInterval(update, 1000);
+  tick();
+  setInterval(tick, 1000);
 })();
 
 
-// ── 2. FLOATING PETALS CANVAS ─────────────────────────────
-(function initPetals() {
-  const canvas = document.getElementById('petalsCanvas');
+// ── 2. SCROLL REVEAL ──────────────────────────────────────
+(function () {
+  const io = new IntersectionObserver(
+    entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in-view'); }),
+    { threshold: 0.1, rootMargin: '0px 0px -30px 0px' }
+  );
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+})();
+
+
+// ── 3. PETAL CANVAS ───────────────────────────────────────
+(function () {
+  const canvas = document.getElementById('canvas');
   const ctx    = canvas.getContext('2d');
+  let W, H;
 
-  let W = canvas.width  = window.innerWidth;
-  let H = canvas.height = window.innerHeight;
-
-  window.addEventListener('resize', () => {
+  function resize() {
     W = canvas.width  = window.innerWidth;
     H = canvas.height = window.innerHeight;
-  });
-
-  const PETAL_COLORS = [
-    'rgba(201,168,76,0.55)',
-    'rgba(248,215,218,0.6)',
-    'rgba(245,230,200,0.55)',
-    'rgba(192,112,122,0.4)',
-    'rgba(255,255,255,0.5)',
-  ];
-
-  const NUM_PETALS = 38;
-
-  function Petal() {
-    this.reset();
   }
-  Petal.prototype.reset = function () {
-    this.x    = Math.random() * W;
-    this.y    = -20 - Math.random() * 80;
-    this.r    = 4 + Math.random() * 8;
-    this.vx   = (Math.random() - 0.5) * 1.2;
-    this.vy   = 0.6 + Math.random() * 1.4;
-    this.rot  = Math.random() * Math.PI * 2;
-    this.drot = (Math.random() - 0.5) * 0.04;
-    this.color = PETAL_COLORS[Math.floor(Math.random() * PETAL_COLORS.length)];
-    this.wobble = Math.random() * Math.PI * 2;
-    this.wobbleSpeed = 0.02 + Math.random() * 0.02;
-    this.opacity = 0.5 + Math.random() * 0.5;
-  };
+  resize();
+  window.addEventListener('resize', resize, { passive: true });
 
-  const petals = Array.from({ length: NUM_PETALS }, () => new Petal());
-  // Spread initial positions
-  petals.forEach(p => { p.y = Math.random() * H; });
-
-  function drawPetal(p) {
+  // Petal shape using bezier curves
+  function drawPetal(ctx, x, y, size, angle, color, alpha) {
     ctx.save();
-    ctx.translate(p.x, p.y);
-    ctx.rotate(p.rot);
-    ctx.globalAlpha = p.opacity;
-    ctx.fillStyle = p.color;
+    ctx.translate(x, y);
+    ctx.rotate(angle);
+    ctx.globalAlpha = alpha;
+    ctx.fillStyle   = color;
     ctx.beginPath();
-    // Oval petal shape
-    ctx.ellipse(0, 0, p.r, p.r * 1.7, 0, 0, Math.PI * 2);
+    ctx.moveTo(0, 0);
+    ctx.bezierCurveTo( size*0.5, -size*0.3,  size*0.8,  size*0.2,  0,       size);
+    ctx.bezierCurveTo(-size*0.8,  size*0.2, -size*0.5, -size*0.3,  0,       0);
     ctx.fill();
     ctx.restore();
   }
 
-  function tick() {
+  const COLORS = [
+    '#c9952a', '#e4b95c', '#f5e4b8',
+    '#a83348', '#d4657a', '#fff0e0',
+  ];
+
+  const N = window.innerWidth < 600 ? 22 : 36;
+
+  const petals = Array.from({ length: N }, () => ({
+    x:     Math.random() * window.innerWidth,
+    y:     Math.random() * window.innerHeight,
+    size:  5 + Math.random() * 9,
+    vx:    (Math.random() - 0.5) * 0.7,
+    vy:    0.5 + Math.random() * 1.1,
+    angle: Math.random() * Math.PI * 2,
+    va:    (Math.random() - 0.5) * 0.025,
+    wobble: Math.random() * Math.PI * 2,
+    ws:    0.018 + Math.random() * 0.018,
+    color: COLORS[Math.floor(Math.random() * COLORS.length)],
+    alpha: 0.25 + Math.random() * 0.45,
+  }));
+
+  function loop() {
     ctx.clearRect(0, 0, W, H);
-
     petals.forEach(p => {
-      p.wobble += p.wobbleSpeed;
-      p.x  += p.vx + Math.sin(p.wobble) * 0.8;
-      p.y  += p.vy;
-      p.rot += p.drot;
-      drawPetal(p);
-      if (p.y > H + 30) p.reset();
+      p.wobble += p.ws;
+      p.x += p.vx + Math.sin(p.wobble) * 0.6;
+      p.y += p.vy;
+      p.angle += p.va;
+      drawPetal(ctx, p.x, p.y, p.size, p.angle, p.color, p.alpha);
+      if (p.y > H + 20) { p.y = -20; p.x = Math.random() * W; }
     });
-
-    requestAnimationFrame(tick);
+    requestAnimationFrame(loop);
   }
-  tick();
+  loop();
 })();
 
 
-// ── 3. SCROLL REVEAL ──────────────────────────────────────
-(function initReveal() {
-  const reveals = document.querySelectorAll('.reveal');
+// ── 4. SUBTLE CARD TILT (desktop only) ────────────────────
+(function () {
+  if (window.matchMedia('(hover: none)').matches) return; // skip touch devices
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
+  document.querySelectorAll('.card, .event-card').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const r  = card.getBoundingClientRect();
+      const dx = (e.clientX - r.left - r.width / 2) / (r.width / 2);
+      const dy = (e.clientY - r.top - r.height / 2) / (r.height / 2);
+      card.style.transform = `perspective(700px) rotateX(${dy * -4}deg) rotateY(${dx * 4}deg)`;
     });
-  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-
-  reveals.forEach(el => observer.observe(el));
-})();
-
-
-// ── 4. ACTIVE NAV DOT ─────────────────────────────────────
-(function initNavDots() {
-  const sections = document.querySelectorAll('section[id]');
-  const dots     = document.querySelectorAll('.nav-dots .dot');
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const id = entry.target.getAttribute('id');
-        dots.forEach(dot => {
-          dot.classList.toggle('active', dot.getAttribute('href') === '#' + id);
-        });
-      }
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
     });
-  }, { threshold: 0.4 });
-
-  sections.forEach(sec => observer.observe(sec));
+  });
 })();
 
 
-// ── 5. SMOOTH PARALLAX ────────────────────────────────────
-(function initParallax() {
-  const hero = document.querySelector('.hero');
-  window.addEventListener('scroll', () => {
-    const scrollY = window.scrollY;
-    if (hero) {
-      hero.style.backgroundPositionY = `${scrollY * 0.4}px`;
-    }
-  }, { passive: true });
-})();
+// ── 5. GOLD CURSOR SPARKLE (desktop only) ─────────────────
+(function () {
+  if (window.matchMedia('(hover: none)').matches) return;
 
+  const SPARK_COLORS = ['#c9952a', '#e4b95c', '#f5e4b8', '#a83348', '#fff0e0'];
+  let frameQueued = false;
+  let lastX = 0, lastY = 0;
 
-// ── 6. CURSOR SPARKLE ─────────────────────────────────────
-(function initSparkles() {
-  const sparkles = [];
-  const COLORS = ['#c9a84c', '#f5e6c8', '#c0707a', '#ffffff', '#8B6914'];
-
-  document.addEventListener('mousemove', (e) => {
-    if (Math.random() > 0.35) return; // throttle
-
-    const spark = document.createElement('div');
-    spark.style.cssText = `
-      position: fixed;
-      pointer-events: none;
-      z-index: 9999;
-      left: ${e.clientX}px;
-      top: ${e.clientY}px;
-      width: ${4 + Math.random() * 6}px;
-      height: ${4 + Math.random() * 6}px;
-      border-radius: 50%;
-      background: ${COLORS[Math.floor(Math.random() * COLORS.length)]};
-      transform: translate(-50%, -50%) scale(1);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    `;
-    document.body.appendChild(spark);
-
-    // Animate out
+  document.addEventListener('mousemove', e => {
+    if (frameQueued) return;
+    frameQueued = true;
     requestAnimationFrame(() => {
-      spark.style.opacity = '0';
-      spark.style.transform = `translate(${(Math.random() - 0.5) * 60}px, ${-20 - Math.random() * 40}px) scale(0)`;
-    });
+      frameQueued = false;
+      if (Math.abs(e.clientX - lastX) + Math.abs(e.clientY - lastY) < 6) return;
+      lastX = e.clientX; lastY = e.clientY;
 
-    setTimeout(() => spark.remove(), 700);
+      if (Math.random() > 0.45) return;
+
+      const dot = document.createElement('div');
+      const sz  = 3 + Math.random() * 5;
+      Object.assign(dot.style, {
+        position: 'fixed',
+        pointerEvents: 'none',
+        zIndex: '9999',
+        left: e.clientX + 'px',
+        top:  e.clientY + 'px',
+        width:  sz + 'px',
+        height: sz + 'px',
+        borderRadius: '50%',
+        background: SPARK_COLORS[Math.floor(Math.random() * SPARK_COLORS.length)],
+        transform: 'translate(-50%,-50%)',
+        opacity: '0.9',
+        transition: 'opacity .55s ease, transform .55s ease',
+      });
+      document.body.appendChild(dot);
+      requestAnimationFrame(() => {
+        dot.style.opacity = '0';
+        dot.style.transform = `translate(${(Math.random()-0.5)*50}px, ${-15-Math.random()*35}px) scale(0.2)`;
+      });
+      setTimeout(() => dot.remove(), 600);
+    });
   });
 })();
-
-
-// ── 7. CARD TILT EFFECT ───────────────────────────────────
-(function initTilt() {
-  document.querySelectorAll('.person-card, .event-card, .glass-card, .host-card')
-    .forEach(card => {
-      card.addEventListener('mousemove', (e) => {
-        const rect   = card.getBoundingClientRect();
-        const cx     = rect.left + rect.width / 2;
-        const cy     = rect.top  + rect.height / 2;
-        const dx     = (e.clientX - cx) / (rect.width  / 2);
-        const dy     = (e.clientY - cy) / (rect.height / 2);
-        const tiltX  = dy * -6;
-        const tiltY  = dx * 6;
-        card.style.transform = `perspective(800px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) translateY(-4px)`;
-      });
-
-      card.addEventListener('mouseleave', () => {
-        card.style.transform = '';
-        card.style.transition = 'transform 0.5s ease';
-      });
-
-      card.addEventListener('mouseenter', () => {
-        card.style.transition = 'transform 0.1s ease';
-      });
-    });
-})();
-
-
-// ── 8. PAGE ENTRANCE ANIMATION ────────────────────────────
-window.addEventListener('load', () => {
-  document.body.style.opacity = '0';
-  document.body.style.transition = 'opacity 1s ease';
-  requestAnimationFrame(() => {
-    document.body.style.opacity = '1';
-  });
-});

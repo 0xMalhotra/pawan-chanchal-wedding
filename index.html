@@ -3,314 +3,263 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pawan weds Chanchal | 20th October 2026</title>
-  <meta name="description" content="You are cordially invited to the wedding of Pawan and Chanchal on Tuesday, 20th October 2026 at Rajaji Hotel & Banquets, Jind." />
+  <title>Pawan weds Chanchal · 20 October 2026</title>
+  <meta name="description" content="You are cordially invited to the wedding of Pawan and Chanchal — Tuesday, 20th October 2026 at Rajaji Hotel & Banquets, Jind." />
+
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Devanagari+New&display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Devanagari:wght@400;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cinzel+Decorative:wght@400;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Great+Vibes&family=Noto+Serif+Devanagari:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <!-- Floating Petals Canvas -->
-  <canvas id="petalsCanvas"></canvas>
+  <!-- Animated petals -->
+  <canvas id="canvas"></canvas>
 
-  <!-- Nav Dots -->
-  <nav class="nav-dots" aria-label="Section navigation">
-    <a href="#hero" class="dot active" title="Home"></a>
-    <a href="#blessing" class="dot" title="Blessing"></a>
-    <a href="#couple" class="dot" title="Couple"></a>
-    <a href="#events" class="dot" title="Events"></a>
-    <a href="#venue" class="dot" title="Venue"></a>
-    <a href="#rsvp" class="dot" title="RSVP"></a>
-  </nav>
+  <!-- ═══════════════════════════════════════════════
+       SECTION 1 · COVER / HERO
+  ═══════════════════════════════════════════════ -->
+  <section class="cover">
+    <div class="cover__bg"></div>
+    <div class="cover__overlay"></div>
 
-  <!-- ===== HERO SECTION ===== -->
-  <section id="hero" class="hero">
-    <div class="hero-overlay"></div>
-    <div class="hero-content">
-      <p class="sanskrit hero-blessing animate-fade-up">॥ श्री गणेशाय नमः ॥</p>
-      <div class="pc-monogram animate-fade-up delay-1">PC</div>
-      <h1 class="hero-names animate-fade-up delay-2">
-        <span class="groom-name">Pawan</span>
-        <span class="weds">weds</span>
-        <span class="bride-name">Chanchal</span>
+    <!-- Decorative border frame -->
+    <div class="frame">
+      <div class="frame__corner frame__corner--tl"></div>
+      <div class="frame__corner frame__corner--tr"></div>
+      <div class="frame__corner frame__corner--bl"></div>
+      <div class="frame__corner frame__corner--br"></div>
+      <div class="frame__edge frame__edge--t"></div>
+      <div class="frame__edge frame__edge--b"></div>
+      <div class="frame__edge frame__edge--l"></div>
+      <div class="frame__edge frame__edge--r"></div>
+    </div>
+
+    <div class="cover__content">
+      <p class="sanskrit dev fade-up">॥ श्री गणेशाय नमः ॥</p>
+
+      <div class="monogram fade-up d1">
+        <span>P</span><div class="monogram__ring"></div><span>C</span>
+      </div>
+
+      <div class="divider-ornament fade-up d2">
+        <svg viewBox="0 0 200 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <line x1="0" y1="8" x2="70" y2="8" stroke="currentColor" stroke-width="0.8" opacity="0.6"/>
+          <path d="M80 8 C85 2, 95 2, 100 8 C105 14, 115 14, 120 8" stroke="currentColor" stroke-width="1" fill="none"/>
+          <circle cx="100" cy="8" r="2.5" fill="currentColor"/>
+          <line x1="130" y1="8" x2="200" y2="8" stroke="currentColor" stroke-width="0.8" opacity="0.6"/>
+        </svg>
+      </div>
+
+      <h1 class="couple-names fade-up d2">
+        <span class="name name--groom">Pawan</span>
+        <span class="weds-text">weds</span>
+        <span class="name name--bride">Chanchal</span>
       </h1>
-      <div class="ornament animate-fade-up delay-3">❧ ✦ ❧</div>
-      <p class="hero-date animate-fade-up delay-3">Tuesday, 20th October, 2026</p>
-      <a href="#blessing" class="scroll-btn animate-fade-up delay-4">
-        <span>View Invitation</span>
-        <svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 16l-6-6h12z" fill="currentColor"/></svg>
+
+      <div class="divider-ornament fade-up d3">
+        <svg viewBox="0 0 200 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <line x1="0" y1="8" x2="70" y2="8" stroke="currentColor" stroke-width="0.8" opacity="0.6"/>
+          <path d="M80 8 C85 2, 95 2, 100 8 C105 14, 115 14, 120 8" stroke="currentColor" stroke-width="1" fill="none"/>
+          <circle cx="100" cy="8" r="2.5" fill="currentColor"/>
+          <line x1="130" y1="8" x2="200" y2="8" stroke="currentColor" stroke-width="0.8" opacity="0.6"/>
+        </svg>
+      </div>
+
+      <p class="cover__date fade-up d3">Tuesday · 20th October · 2026</p>
+
+      <!-- Countdown -->
+      <div class="countdown fade-up d4" id="countdown">
+        <div class="cd-item"><span id="cd-d">--</span><small>Days</small></div>
+        <div class="cd-sep">:</div>
+        <div class="cd-item"><span id="cd-h">--</span><small>Hrs</small></div>
+        <div class="cd-sep">:</div>
+        <div class="cd-item"><span id="cd-m">--</span><small>Min</small></div>
+        <div class="cd-sep">:</div>
+        <div class="cd-item"><span id="cd-s">--</span><small>Sec</small></div>
+      </div>
+
+      <a href="#invite" class="scroll-cta fade-up d4">
+        Open Invitation
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
       </a>
-    </div>
-    <div class="hero-flowers">
-      <div class="flower f1"></div>
-      <div class="flower f2"></div>
-      <div class="flower f3"></div>
-      <div class="flower f4"></div>
-    </div>
-    <!-- Countdown Timer -->
-    <div class="countdown animate-fade-up delay-5" id="countdown">
-      <div class="countdown-item"><span id="days">00</span><label>Days</label></div>
-      <div class="countdown-sep">:</div>
-      <div class="countdown-item"><span id="hours">00</span><label>Hours</label></div>
-      <div class="countdown-sep">:</div>
-      <div class="countdown-item"><span id="minutes">00</span><label>Minutes</label></div>
-      <div class="countdown-sep">:</div>
-      <div class="countdown-item"><span id="seconds">00</span><label>Seconds</label></div>
     </div>
   </section>
 
-  <!-- ===== BLESSING SECTION ===== -->
-  <section id="blessing" class="blessing-section reveal">
-    <div class="card glass-card">
-      <div class="ganesha-icon">
-        <img src="ganesha.png" alt="Shri Ganesha" />
+  <!-- ═══════════════════════════════════════════════
+       SECTION 2 · GANESHA BLESSING
+  ═══════════════════════════════════════════════ -->
+  <section id="invite" class="blessing reveal">
+    <div class="card card--blessing">
+      <div class="ganesha-wrap">
+        <img src="ganesha.png" alt="Shree Ganesha" class="ganesha-img" />
       </div>
-      <p class="sanskrit large-sanskrit">॥ श्री गणेशाय नमः ॥</p>
-      <div class="divider-img"><img src="divider.png" alt="decorative divider" /></div>
-      <p class="sanskrit shloka">
+      <p class="sanskrit large dev">॥ श्री गणेशाय नमः ॥</p>
+      <div class="gold-rule"></div>
+      <p class="shloka dev">
         विघ्न हरण मंगल करण, श्री गणपति महाराज ।<br />
         प्रथम निमंत्रण आपको, पूर्ण कीजो काज ॥
       </p>
-      <div class="divider-img"><img src="divider.png" alt="decorative divider" /></div>
-      <p class="blessing-text">
-        With joyful hearts and the blessings of the Almighty,<br/>
-        we invite you to be a part of this sacred union.
+      <div class="gold-rule"></div>
+      <p class="blessing-prose">
+        With hearts full of joy and the blessings of the Almighty,<br />
+        we joyfully invite you to celebrate this sacred union.
       </p>
     </div>
   </section>
 
-  <!-- ===== COUPLE SECTION ===== -->
-  <section id="couple" class="couple-section">
-    <div class="section-header reveal">
-      <p class="section-label">The Wedding of</p>
-    </div>
+  <!-- ═══════════════════════════════════════════════
+       SECTION 3 · MAIN INVITATION
+  ═══════════════════════════════════════════════ -->
+  <section class="main-invite reveal">
+    <div class="card card--invite">
+      <p class="label-tag">You're Invited</p>
 
-    <div class="couple-card reveal">
-      <div class="person-card groom-card">
-        <div class="person-bg"></div>
-        <div class="person-content">
-          <h2 class="script-name">Pawan</h2>
-          <p class="person-detail">S/O Smt. Kamlesh &amp; Late Sh. Ranbir Singh</p>
-          <div class="family-tag">Sihag Family</div>
+      <p class="invite-intro">
+        <strong>Smt. Sajjani Devi</strong>
+        <em>(W/o Late Sh. Wazir Singh)</em>
+        <span>joyfully invites you to celebrate the union of her grandson</span>
+      </p>
+
+      <div class="couple-block">
+        <div class="person">
+          <h2 class="script-lg">Pawan</h2>
+          <p class="person-parents">S/O Smt. Kamlesh &amp; Late Sh. Ranbir Singh</p>
+        </div>
+
+        <div class="heart-sep">
+          <svg viewBox="0 0 40 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M20 34 C20 34 2 22 2 11 C2 5.5 6.5 2 11 2 C14.5 2 17.5 4 20 7 C22.5 4 25.5 2 29 2 C33.5 2 38 5.5 38 11 C38 22 20 34 20 34Z" fill="currentColor" opacity="0.85"/>
+          </svg>
+        </div>
+
+        <div class="person">
+          <h2 class="script-lg">Chanchal</h2>
+          <p class="person-parents">D/O Smt. Asha Devi &amp; Sh. Suresh Kumar Dhanda<br/><em>R/O Rohtak Road, Jind</em></p>
         </div>
       </div>
 
-      <div class="ampersand-center">
-        <div class="heart-ring">
-          <span>&#10084;</span>
-        </div>
-      </div>
+      <p class="as-per-prog">— as per programme —</p>
 
-      <div class="person-card bride-card">
-        <div class="person-bg"></div>
-        <div class="person-content">
-          <h2 class="script-name">Chanchal</h2>
-          <p class="person-detail">D/O Smt. Asha Devi &amp; Sh. Suresh Kumar Dhanda</p>
-          <div class="family-tag">R/O Rohtak Road, Jind</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Hosted By -->
-    <div class="hosted-by reveal">
-      <div class="divider-line"></div>
-      <p class="hosted-label">Hosted By</p>
-      <div class="hosts-grid">
-        <div class="host-card glass-card-sm">
-          <p class="host-name">Smt. Sajjani Devi</p>
-          <p class="host-relation">W/o Late Sh. Wazir Singh</p>
-          <p class="host-desc">Grandmother of the Groom</p>
-        </div>
-        <div class="host-card glass-card-sm">
-          <p class="host-name">Smt. Kamlesh</p>
-          <p class="host-relation">W/o Late Sh. Ranbir Singh</p>
-          <p class="host-desc">Mother of the Groom</p>
-        </div>
-      </div>
+      <div class="gold-rule"></div>
+      <p class="rsvp-family">RSVP · <strong>Whole Sihag Family</strong></p>
     </div>
   </section>
 
-  <!-- ===== EVENTS SECTION ===== -->
-  <section id="events" class="events-section">
-    <div class="section-header reveal">
-      <p class="section-label">Join Us For</p>
-      <h2 class="section-title">The Celebrations</h2>
-      <div class="ornament-gold">❧ ✦ ❧</div>
-    </div>
+  <!-- ═══════════════════════════════════════════════
+       SECTION 4 · RECEPTION EVENT
+  ═══════════════════════════════════════════════ -->
+  <section class="events reveal">
+    <div class="section-eyebrow">Join Us For</div>
+    <h2 class="section-heading">The Celebrations</h2>
+    <div class="ornament-row" aria-hidden="true">❧&thinsp;✦&thinsp;❧</div>
 
-    <div class="events-grid">
-      <!-- Reception Card -->
-      <div class="event-card reveal">
-        <div class="event-icon">🥂</div>
-        <div class="event-badge">Reception</div>
-        <div class="event-body">
-          <p class="sanskrit event-blessing">
-            वक्रतुंड महाकाय सूर्यकोटि समप्रभः ।<br />
-            निर्विघ्नं कुरुमे देव सर्वकार्येषु सर्वदा ॥
-          </p>
-          <div class="event-divider"></div>
-          <div class="event-detail">
-            <div class="event-detail-row">
-              <span class="detail-icon">📅</span>
-              <span>Tuesday, 20th October, 2026</span>
-            </div>
-            <div class="event-detail-row">
-              <span class="detail-icon">🕗</span>
-              <span>8:00 PM onwards</span>
-            </div>
-            <div class="event-detail-row">
-              <span class="detail-icon">📍</span>
-              <div>
-                <strong>Rajaji Hotel &amp; Banquets</strong><br />
-                New Bye-Pass, Near Safidon Road, Jind
-              </div>
-            </div>
-          </div>
-          <a href="https://maps.google.com/?q=Rajaji+Hotel+Banquets+Jind" target="_blank" rel="noopener" class="directions-btn">
-            📍 Get Directions
-          </a>
-        </div>
-      </div>
+    <div class="event-card">
+      <div class="event-card__ribbon">Reception</div>
 
-      <!-- Wedding Day Card -->
-      <div class="event-card reveal delay-1">
-        <div class="event-icon">💍</div>
-        <div class="event-badge">Wedding</div>
-        <div class="event-body">
-          <p class="event-quote">"as per programme"</p>
-          <div class="event-divider"></div>
-          <div class="event-detail">
-            <div class="event-detail-row">
-              <span class="detail-icon">📅</span>
-              <span>Tuesday, 20th October, 2026</span>
-            </div>
-            <div class="event-detail-row">
-              <span class="detail-icon">👨‍👩‍👦</span>
-              <span>Whole Sihag Family cordially invites you</span>
-            </div>
-          </div>
-          <div class="couple-tag">
-            <span class="script-inline">Pawan</span>
-            <span> &amp; </span>
-            <span class="script-inline">Chanchal</span>
-          </div>
-        </div>
-      </div>
+      <p class="shloka-sm dev">
+        वक्रतुंड महाकाय सूर्यकोटि समप्रभः ।<br />
+        निर्विघ्नं कुरुमे देव सर्वकार्येषु सर्वदा ॥
+      </p>
+
+      <div class="gold-rule narrow"></div>
+
+      <ul class="event-details">
+        <li>
+          <span class="ev-icon">📅</span>
+          <span>Tuesday, <strong>20th October, 2026</strong></span>
+        </li>
+        <li>
+          <span class="ev-icon">🕗</span>
+          <span><strong>8:00 PM</strong> onwards</span>
+        </li>
+        <li>
+          <span class="ev-icon">📍</span>
+          <span>
+            <strong>Rajaji Hotel &amp; Banquets</strong><br />
+            New Bye-Pass, Near Safidon Road, Jind
+          </span>
+        </li>
+      </ul>
+
+      <a href="https://maps.google.com/?q=Rajaji+Hotel+Banquets+Jind" target="_blank" rel="noopener" class="btn-gold">
+        Get Directions
+      </a>
     </div>
   </section>
 
-  <!-- ===== VENUE SECTION ===== -->
-  <section id="venue" class="venue-section reveal">
-    <div class="section-header">
-      <p class="section-label">Venue</p>
-      <h2 class="section-title">Rajaji Hotel &amp; Banquets</h2>
-      <div class="ornament-gold">❧ ✦ ❧</div>
-      <p class="venue-address">New Bye-Pass, Near Safidon Road, Jind, Haryana</p>
-    </div>
+  <!-- ═══════════════════════════════════════════════
+       SECTION 5 · VENUE MAP
+  ═══════════════════════════════════════════════ -->
+  <section class="venue reveal">
+    <div class="section-eyebrow">Venue</div>
+    <h2 class="section-heading">Rajaji Hotel &amp; Banquets</h2>
+    <p class="venue-address">New Bye-Pass · Near Safidon Road · Jind, Haryana</p>
+    <div class="ornament-row" aria-hidden="true">❧&thinsp;✦&thinsp;❧</div>
 
-    <div class="venue-map-wrapper">
-      <div class="map-container">
-        <iframe
-          title="Rajaji Hotel and Banquets Jind Location"
-          src="https://maps.google.com/maps?q=Rajaji+Hotel+Banquets+Jind+Haryana&output=embed"
-          width="100%"
-          height="400"
-          style="border:0;"
-          allowfullscreen=""
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade">
-        </iframe>
-      </div>
-      <div class="venue-qr-wrapper">
-        <div class="qr-card glass-card-sm">
-          <p class="qr-label">📲 Scan for Google Maps</p>
-          <div class="qr-placeholder">
-            <a href="https://maps.google.com/?q=Rajaji+Hotel+Banquets+Jind" target="_blank" rel="noopener" class="qr-link">
-              <svg viewBox="0 0 100 100" width="120" height="120" xmlns="http://www.w3.org/2000/svg">
-                <rect x="10" y="10" width="30" height="30" rx="4" fill="none" stroke="#8B6914" stroke-width="3"/>
-                <rect x="17" y="17" width="16" height="16" fill="#8B6914"/>
-                <rect x="60" y="10" width="30" height="30" rx="4" fill="none" stroke="#8B6914" stroke-width="3"/>
-                <rect x="67" y="17" width="16" height="16" fill="#8B6914"/>
-                <rect x="10" y="60" width="30" height="30" rx="4" fill="none" stroke="#8B6914" stroke-width="3"/>
-                <rect x="17" y="67" width="16" height="16" fill="#8B6914"/>
-                <rect x="50" y="50" width="8" height="8" fill="#8B6914"/>
-                <rect x="63" y="50" width="8" height="8" fill="#8B6914"/>
-                <rect x="76" y="50" width="14" height="8" fill="#8B6914"/>
-                <rect x="50" y="63" width="8" height="8" fill="#8B6914"/>
-                <rect x="63" y="63" width="8" height="22" fill="#8B6914"/>
-                <rect x="76" y="63" width="14" height="8" fill="#8B6914"/>
-                <rect x="50" y="76" width="8" height="14" fill="#8B6914"/>
-                <rect x="76" y="76" width="14" height="14" fill="#8B6914"/>
-              </svg>
-              <span>Open in Maps</span>
-            </a>
-          </div>
-        </div>
-      </div>
+    <div class="map-wrap">
+      <iframe
+        title="Rajaji Hotel and Banquets location"
+        src="https://maps.google.com/maps?q=Rajaji+Hotel+Banquets+Jind+Haryana&output=embed"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        allowfullscreen>
+      </iframe>
     </div>
   </section>
 
-  <!-- ===== RSVP / CONTACT SECTION ===== -->
-  <section id="rsvp" class="rsvp-section reveal">
-    <div class="rsvp-bg"></div>
-    <div class="rsvp-content">
-      <div class="section-header">
-        <p class="section-label">Contact Us</p>
-        <h2 class="section-title rsvp-title">A Cordial Invitation From</h2>
-        <div class="ornament-gold">❧ ✦ ❧</div>
-      </div>
+  <!-- ═══════════════════════════════════════════════
+       SECTION 6 · HOST / RSVP
+  ═══════════════════════════════════════════════ -->
+  <section class="rsvp reveal">
+    <div class="section-eyebrow">From The Family</div>
+    <h2 class="section-heading">A Cordial Invitation</h2>
+    <div class="ornament-row" aria-hidden="true">❧&thinsp;✦&thinsp;❧</div>
 
-      <div class="contact-card glass-card reveal">
-        <div class="contact-header">
-          <div class="pc-monogram-sm">PC</div>
-          <p class="contact-name">Smt. Kamlesh</p>
-          <p class="contact-relation">W/o Late Sh. Ranbir Singh</p>
-        </div>
-        <div class="contact-details">
-          <div class="contact-row">
-            <span>🏡</span>
-            <div>
-              <strong>Village Haibatpur</strong><br />
-              Distt. Jind (HR)
-            </div>
-          </div>
-          <div class="contact-row">
-            <span>📞</span>
-            <div>
-              <a href="tel:9416193149">9416193149</a> &nbsp;|&nbsp;
-              <a href="tel:7015002113">7015002113</a>
-            </div>
-          </div>
-        </div>
+    <div class="card card--contact">
+      <div class="monogram monogram--sm">
+        <span>P</span><div class="monogram__ring"></div><span>C</span>
       </div>
+      <p class="contact-name">Smt. Kamlesh</p>
+      <p class="contact-rel">W/o Late Sh. Ranbir Singh</p>
+      <div class="gold-rule narrow"></div>
+      <p class="contact-addr">Village Haibatpur, Distt. Jind (HR)</p>
 
-      <div class="rsvp-cta reveal">
-        <p class="rsvp-msg">Your presence will make our celebration complete. ❤️</p>
-        <p class="rsvp-note">— Whole Sihag Family</p>
-        <div class="rsvp-actions">
-          <a href="tel:9416193149" class="btn-primary">📞 Call Us</a>
-          <a href="https://wa.me/919416193149?text=Congratulations!%20We%20will%20join%20the%20celebration%20of%20Pawan%20%26%20Chanchal's%20wedding." target="_blank" rel="noopener" class="btn-secondary">💬 WhatsApp</a>
-        </div>
+      <div class="contact-phones">
+        <a href="tel:9416193149" class="phone-link">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3 19.5 19.5 0 01-6-6 19.8 19.8 0 01-3-8.6A2 2 0 014.1 2h3a2 2 0 012 1.7c.1 1 .4 2 .7 2.9a2 2 0 01-.5 2.1L8.1 9.9a16 16 0 006 6l1.2-1.2a2 2 0 012.1-.5c.9.3 1.9.6 2.9.7A2 2 0 0122 16.9z"/></svg>
+          9416193149
+        </a>
+        <span class="phone-sep">·</span>
+        <a href="tel:7015002113" class="phone-link">7015002113</a>
       </div>
+    </div>
 
-      <div class="final-blessing reveal">
-        <p class="sanskrit">॥ श्री गणेशाय नमः ॥</p>
-        <p class="final-names">
-          <span class="script-name">Pawan</span>
-          <span class="weds-sm"> weds </span>
-          <span class="script-name">Chanchal</span>
-        </p>
-        <p class="final-date">Tuesday, 20th October, 2026</p>
-      </div>
+    <div class="rsvp-actions">
+      <a href="tel:9416193149" class="btn-gold">📞 Call Us</a>
+      <a href="https://wa.me/919416193149?text=We%20are%20delighted%20to%20attend%20Pawan%20%26%20Chanchal's%20wedding%20on%2020th%20October%202026!" target="_blank" rel="noopener" class="btn-whatsapp">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.2-.2.3-.8.9-.9 1.1-.2.2-.3.2-.6.1-.3-.2-1.2-.4-2.3-1.4-.8-.7-1.4-1.6-1.5-1.9-.2-.3 0-.4.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5-.1-.1-.7-1.6-1-2.2-.2-.5-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.1 2 3.1 4.9 4.3.7.3 1.2.4 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.3zM12 2C6.5 2 2 6.5 2 12c0 1.9.5 3.7 1.4 5.3L2 22l4.9-1.3C8.3 21.5 10.1 22 12 22c5.5 0 10-4.5 10-10S17.5 2 12 2z"/></svg>
+        WhatsApp RSVP
+      </a>
+    </div>
+
+    <!-- Final closing -->
+    <div class="closing">
+      <div class="gold-rule"></div>
+      <p class="sanskrit dev">॥ श्री गणेशाय नमः ॥</p>
+      <p class="closing-names">
+        <span class="script-lg sm">Pawan</span>
+        <span class="closing-amp">&amp;</span>
+        <span class="script-lg sm">Chanchal</span>
+      </p>
+      <p class="closing-date">Tuesday, 20th October, 2026</p>
     </div>
   </section>
 
-  <!-- Footer -->
   <footer class="footer">
-    <p>Made with ❤️ for Pawan &amp; Chanchal | 20th October, 2026</p>
+    <p>Made with <span aria-label="love">❤️</span> for Pawan &amp; Chanchal · 2026</p>
   </footer>
 
   <script src="script.js"></script>
