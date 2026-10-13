@@ -172,12 +172,12 @@
 (function () {
   const audio  = document.getElementById('bg-music');
   const toggle = document.getElementById('music-toggle');
-  if (!audio || !toggle) return;
+  if (!audio) return;
 
-  let isPlaying = false;
+  audio.volume = 0.8;
 
   function updateUI(playing) {
-    isPlaying = playing;
+    if (!toggle) return;
     if (playing) {
       toggle.classList.remove('is-paused');
       toggle.classList.add('is-playing');
@@ -191,12 +191,23 @@
     }
   }
 
-  function playAudio() {
-    const playPromise = audio.play();
-    if (playPromise !== undefined) {
-      playPromise.then(() => {
+  // Keep UI in sync with native audio state
+  audio.addEventListener('play', () => updateUI(true));
+  audio.addEventListener('playing', () => updateUI(true));
+  audio.addEventListener('pause', () => updateUI(false));
+  audio.addEventListener('ended', () => {
+    audio.currentTime = 0;
+    tryPlay();
+  });
+
+  function tryPlay() {
+    const promise = audio.play();
+    if (promise !== undefined) {
+      promise.then(() => {
         updateUI(true);
+        removeUnlockers();
       }).catch(() => {
+        // Autoplay policy prevented playback without interaction
         updateUI(false);
       });
     }
@@ -207,44 +218,59 @@
     updateUI(false);
   }
 
-  toggle.addEventListener('click', e => {
-    e.stopPropagation();
-    if (audio.paused) {
-      playAudio();
-    } else {
-      pauseAudio();
-    }
-  });
-
-  // Start smoothly on first user gesture across mobile and desktop
-  function handleFirstGesture() {
-    if (audio.paused && !isPlaying) {
-      playAudio();
-    }
-    removeGestureListeners();
-  }
-
-  function removeGestureListeners() {
-    window.removeEventListener('click', handleFirstGesture);
-    window.removeEventListener('touchstart', handleFirstGesture);
-    window.removeEventListener('scroll', handleFirstGesture);
-    window.removeEventListener('keydown', handleFirstGesture);
-  }
-
-  window.addEventListener('click', handleFirstGesture, { passive: true });
-  window.addEventListener('touchstart', handleFirstGesture, { passive: true });
-  window.addEventListener('scroll', handleFirstGesture, { passive: true });
-  window.addEventListener('keydown', handleFirstGesture, { passive: true });
-
-  // Hook "Open Invitation" button
-  const openCta = document.querySelector('.scroll-cta');
-  if (openCta) {
-    openCta.addEventListener('click', () => {
-      if (audio.paused) playAudio();
+  if (toggle) {
+    toggle.addEventListener('click', e => {
+      e.stopPropagation();
+      if (audio.paused) {
+        tryPlay();
+      } else {
+        pauseAudio();
+      }
     });
   }
 
-  // Try immediate autoplay if browser allows
-  playAudio();
+  // Universal capture-phase listeners to unlock audio on first touch, scroll, or tap anywhere
+  const unlockEvents = [
+    'pointerdown', 'touchstart', 'touchend',
+    'mousedown', 'click', 'keydown',
+    'scroll', 'wheel'
+  ];
+
+  function onFirstInteraction() {
+    if (audio.paused) {
+      tryPlay();
+    }
+  }
+
+  function addUnlockers() {
+    unlockEvents.forEach(evt => {
+      document.addEventListener(evt, onFirstInteraction, { capture: true, passive: true });
+      window.addEventListener(evt, onFirstInteraction, { capture: true, passive: true });
+    });
+  }
+
+  function removeUnlockers() {
+    unlockEvents.forEach(evt => {
+      document.removeEventListener(evt, onFirstInteraction, { capture: true });
+      window.removeEventListener(evt, onFirstInteraction, { capture: true });
+    });
+  }
+
+  addUnlockers();
+
+  // Hook "Open Invitation" CTA
+  const openCta = document.querySelector('.scroll-cta');
+  if (openCta) {
+    openCta.addEventListener('click', () => {
+      if (audio.paused) tryPlay();
+    });
+  }
+
+  // Multiple launch-point triggers
+  tryPlay();
+  document.addEventListener('DOMContentLoaded', tryPlay);
+  window.addEventListener('load', tryPlay);
+  window.addEventListener('pageshow', tryPlay);
 })();
+
 
