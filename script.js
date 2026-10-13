@@ -16,7 +16,7 @@
     const diff = target - Date.now();
     if (diff <= 0) {
       document.getElementById('countdown').innerHTML =
-        '<p style="font-family:var(--f-script);font-size:2rem;color:var(--clr-gold-lt)">🎊 Today is the Big Day!</p>';
+        '<p style="font-family:var(--f-heading);font-size:1.15rem;color:var(--clr-gold-lt);letter-spacing:0.16em;text-transform:uppercase">Today is the Big Day</p>';
       return;
     }
     const pad = n => String(Math.floor(n)).padStart(2, '0');
