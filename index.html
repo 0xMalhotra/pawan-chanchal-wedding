@@ -15,6 +15,20 @@
 </head>
 <body>
 
+  <!-- Background Music & Floating Control -->
+  <audio id="bg-music" src="music.mp3" preload="auto" loop></audio>
+  <button id="music-toggle" class="music-toggle is-paused" aria-label="Toggle Background Music" title="Play Music">
+    <svg class="music-toggle__icon icon-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M8 5v14l11-7z"/>
+    </svg>
+    <svg class="music-toggle__icon icon-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+    </svg>
+    <span class="music-waves" aria-hidden="true">
+      <span></span><span></span><span></span>
+    </span>
+  </button>
+
   <!-- Animated petals -->
   <canvas id="canvas"></canvas>
 

@@ -166,3 +166,85 @@
     });
   });
 })();
+
+
+// ── 6. BACKGROUND MUSIC CONTROLLER ────────────────────────
+(function () {
+  const audio  = document.getElementById('bg-music');
+  const toggle = document.getElementById('music-toggle');
+  if (!audio || !toggle) return;
+
+  let isPlaying = false;
+
+  function updateUI(playing) {
+    isPlaying = playing;
+    if (playing) {
+      toggle.classList.remove('is-paused');
+      toggle.classList.add('is-playing');
+      toggle.setAttribute('aria-label', 'Pause Background Music');
+      toggle.setAttribute('title', 'Pause Music');
+    } else {
+      toggle.classList.remove('is-playing');
+      toggle.classList.add('is-paused');
+      toggle.setAttribute('aria-label', 'Play Background Music');
+      toggle.setAttribute('title', 'Play Music');
+    }
+  }
+
+  function playAudio() {
+    const playPromise = audio.play();
+    if (playPromise !== undefined) {
+      playPromise.then(() => {
+        updateUI(true);
+      }).catch(() => {
+        updateUI(false);
+      });
+    }
+  }
+
+  function pauseAudio() {
+    audio.pause();
+    updateUI(false);
+  }
+
+  toggle.addEventListener('click', e => {
+    e.stopPropagation();
+    if (audio.paused) {
+      playAudio();
+    } else {
+      pauseAudio();
+    }
+  });
+
+  // Start smoothly on first user gesture across mobile and desktop
+  function handleFirstGesture() {
+    if (audio.paused && !isPlaying) {
+      playAudio();
+    }
+    removeGestureListeners();
+  }
+
+  function removeGestureListeners() {
+    window.removeEventListener('click', handleFirstGesture);
+    window.removeEventListener('touchstart', handleFirstGesture);
+    window.removeEventListener('scroll', handleFirstGesture);
+    window.removeEventListener('keydown', handleFirstGesture);
+  }
+
+  window.addEventListener('click', handleFirstGesture, { passive: true });
+  window.addEventListener('touchstart', handleFirstGesture, { passive: true });
+  window.addEventListener('scroll', handleFirstGesture, { passive: true });
+  window.addEventListener('keydown', handleFirstGesture, { passive: true });
+
+  // Hook "Open Invitation" button
+  const openCta = document.querySelector('.scroll-cta');
+  if (openCta) {
+    openCta.addEventListener('click', () => {
+      if (audio.paused) playAudio();
+    });
+  }
+
+  // Try immediate autoplay if browser allows
+  playAudio();
+})();
+

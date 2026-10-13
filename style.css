@@ -1124,3 +1124,112 @@ section {
   .scroll-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(201,149,42,0.55); }
   .btn-gold:hover   { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(201,149,42,0.5); }
 }
+
+/* ── BACKGROUND MUSIC FLOATING TOGGLE ────────────────────── */
+.music-toggle {
+  position: fixed;
+  top: max(18px, env(safe-area-inset-top, 18px));
+  right: 18px;
+  z-index: 1000;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(201, 149, 42, 0.45);
+  background: rgba(26, 10, 14, 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  color: var(--clr-gold-lt);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  padding: 0;
+  outline: none;
+  box-shadow:
+    0 6px 20px rgba(0, 0, 0, 0.55),
+    0 0 16px rgba(201, 149, 42, 0.22),
+    inset 0 1px 0 rgba(245, 228, 184, 0.35);
+  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.music-toggle:hover {
+  transform: scale(1.08);
+  border-color: var(--clr-gold-lt);
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.65),
+    0 0 24px rgba(201, 149, 42, 0.5);
+}
+
+.music-toggle:active {
+  transform: scale(0.94);
+}
+
+.music-toggle__icon {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+.music-toggle.is-playing .icon-play {
+  display: none;
+}
+
+.music-toggle.is-playing .icon-pause {
+  display: block;
+}
+
+.music-toggle.is-paused .icon-play {
+  display: block;
+  transform: translateX(1px);
+}
+
+.music-toggle.is-paused .icon-pause {
+  display: none;
+}
+
+/* Sound waves equalizer */
+.music-waves {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  height: 14px;
+}
+
+.music-waves span {
+  width: 2px;
+  height: 4px;
+  background: var(--clr-gold-lt);
+  border-radius: 2px;
+  transition: height 0.25s ease;
+}
+
+.music-toggle.is-playing .music-waves span:nth-child(1) {
+  animation: eqBar 1s ease-in-out infinite alternate;
+}
+.music-toggle.is-playing .music-waves span:nth-child(2) {
+  animation: eqBar 1.2s ease-in-out infinite alternate 0.2s;
+}
+.music-toggle.is-playing .music-waves span:nth-child(3) {
+  animation: eqBar 0.9s ease-in-out infinite alternate 0.4s;
+}
+
+@keyframes eqBar {
+  0%   { height: 3px; }
+  100% { height: 13px; }
+}
+
+.music-toggle.is-playing {
+  border-color: var(--clr-gold);
+  animation: musicGlow 2.8s ease-in-out infinite;
+}
+
+@keyframes musicGlow {
+  0%, 100% {
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.55), 0 0 12px rgba(201, 149, 42, 0.25);
+  }
+  50% {
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.65), 0 0 24px rgba(201, 149, 42, 0.6);
+  }
+}
